@@ -4,10 +4,9 @@
  *  components of the color).  All game pieces have a color.
  *
  */
-public class Color
+public enum Color
 {
-
-	public enum Colors{RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA}
+	RED(255,0,0), GREEN(0,255,0), BLUE(0,0,255), YELLOW(255,255,0), CYAN(0,255,255), MAGENTA(255,0,255);
 	
 	/**
 	 * Variables used to hold values of red, green, and blue
@@ -22,7 +21,7 @@ public class Color
 	 * @param g
 	 * @param b
 	 */
-	public Color(int r, int g, int b)
+	private Color(int r, int g, int b)
 	{
 		this.r = r;
 		this.g = g;
