@@ -40,6 +40,18 @@ public class BoardGame
 	 */
 	public boolean addPlayer(String playerName, GamePiece gamePiece, Location initialLocation)
 	{
+		if((! playerPieces.containsKey(playerName)) && (! playerPieces.containsValue(gamePiece)))
+		{
+			playerPieces.put(playerName, gamePiece);
+			playerLocations.put(playerName, initialLocation);
+			
+			return true;
+		}
+		
+		else
+		{
+			return false;
+		}
 		
 	}
 	
@@ -50,7 +62,7 @@ public class BoardGame
 	 */
 	public GamePiece getPlayerGamePiece(String playerName)
 	{
-		
+		return playerPieces.get(playerName);
 	}
 	
 	/**
@@ -60,7 +72,17 @@ public class BoardGame
 	 */
 	public String getPlayerWithGamePiece(GamePiece gamePiece)
 	{
+		String gp = new String();
 		
+		for(String playerName : playerPieces.keySet())
+		{
+			if(playerPieces.get(playerName) == gamePiece)
+			{
+				gp = playerName;
+			}
+		}
+		
+		return gp;
 	}
 	
 	/**
@@ -70,7 +92,7 @@ public class BoardGame
 	 */
 	public void movePlayer(String playerName, Location newLocation)
 	{
-		
+			playerLocations.replace(playerName, newLocation);	
 	}
 	
 	/**
@@ -82,6 +104,27 @@ public class BoardGame
 	public String[] moveTwoPlayers(String[] playerNames, Location[] newLocation)
 	{
 		
+		GamePiece playerOne = playerPieces.get(playerNames[0]);
+		GamePiece playerTwo = playerPieces.get(playerNames[1]);
+		
+		GamePiece movesFirst = playerOne.movesFirst(playerOne, playerTwo);
+		
+		String[] moveOrder = new String[]{};
+		
+		if(movesFirst.equals(playerOne))
+		{
+			moveOrder[0] = playerNames[0];
+			moveOrder[1] = playerNames[1];
+			playerLocations.replace(playerNames[0], newLocation[0]);
+		}
+		else
+		{
+			moveOrder[1] = playerNames[1];
+			moveOrder[0] = playerNames[0];
+			playerLocations.replace(playerNames[1], newLocation[1]);
+		}
+		
+		return moveOrder;
 	}
 	
 	/**
@@ -91,7 +134,7 @@ public class BoardGame
 	 */
 	public Location getPlayersLocation(String player)
 	{
-		
+		return playerLocations.get(player);
 	}
 	
 	/**
@@ -101,7 +144,17 @@ public class BoardGame
 	 */
 	public ArrayList<String> getPlayersAtLocation(Location loc)
 	{
+		ArrayList<String> piecesAtLoc = new ArrayList<String>();
 		
+		for(String playerName : playerLocations.keySet())
+		{
+			if(playerLocations.get(playerName) == loc)
+			{
+				piecesAtLoc.add(playerName);
+			}
+		}
+		
+		return piecesAtLoc;
 	}
 	
 	/**
@@ -111,7 +164,17 @@ public class BoardGame
 	 */
 	public ArrayList<GamePiece> getGamePiecesAtLocation(Location loc)
 	{
+		ArrayList<GamePiece> piecesAtLoc = new ArrayList<GamePiece>();
 		
+		for(String playerName : playerLocations.keySet())
+		{
+			if(playerLocations.get(playerName) == loc)
+			{
+				piecesAtLoc.add(playerPieces.get(playerName));
+			}
+		}
+		
+		return piecesAtLoc;
 	}
 	
 	/**
@@ -120,7 +183,7 @@ public class BoardGame
 	 */
 	public Set<String> getPlayers()
 	{
-		
+		return playerPieces.keySet();
 	}
 	
 	/**
@@ -129,7 +192,7 @@ public class BoardGame
 	 */
 	public Set<Location> getPlayerLocations()
 	{
-		
+		return (Set<Location>) playerLocations.values();
 	}
 	
 	/**
@@ -138,6 +201,6 @@ public class BoardGame
 	 */
 	public Set<GamePiece> getPlayerPieces()
 	{
-		
+		return (Set<GamePiece>) playerPieces.values();
 	}
 }
