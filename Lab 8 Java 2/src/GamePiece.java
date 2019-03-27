@@ -73,8 +73,10 @@ public enum GamePiece
 	 * (1) The name of the enum constant (e.g. BLUE_RACER) (2) The name of the game piece's color
 	 * (3) The name of the game piece's shape (4) The priority value of the game piece
 	 */
+	@Override
 	public String toString()
 	{
-		return String.format("%s: a %s %s with priority %d", name(), getColor(), getShape(), priority);
+		return String.format("%s: a %s %s with priority %d", name(), getColor(),
+				getShape(), priority);
 	}
 }
