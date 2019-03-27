@@ -6,8 +6,11 @@ public enum Shape
 {
 	THIMBLE, BOOT, RACECAR;
 	
+	/**
+	 * Gives the name of the value of the enum object, in lowercase.
+	 */
 	public String toString()
 	{
-		return this.toString();
+		return this.name().toLowerCase();
 	}
 }
