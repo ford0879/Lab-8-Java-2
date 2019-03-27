@@ -15,7 +15,7 @@ public enum GamePiece
 	RED_RACER(new GamePieceAppearance(Color.RED, Shape.RACECAR), 0), 
 	BLUE_RACER(new GamePieceAppearance(Color.BLUE, Shape.RACECAR), 2),
 	
-	MAGENTA_RACER(new GamePieceAppearance(Color.MAGENTA, Shape.RACECAR), 4),
+	MAGENTA_RACER(new GamePieceAppearance(Color.MAGENTA, Shape.RACECAR), 1),
 	RED_THIMBLE(new GamePieceAppearance(Color.RED, Shape.THIMBLE), 10), 
 	
 	BLUE_BOOT(new GamePieceAppearance(Color.BLUE, Shape.BOOT), 5), 
@@ -55,7 +55,7 @@ public enum GamePiece
 	 * That is, the game piece that would take its turn first.
 	 * @return game piece that needs to move first
 	 */
-	public GamePiece movesFirst(GamePiece a, GamePiece b)
+	public static GamePiece movesFirst(GamePiece a, GamePiece b)
 	{
 		if(a.priority < b.priority)
 		{

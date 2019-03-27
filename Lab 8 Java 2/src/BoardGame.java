@@ -16,12 +16,12 @@ public class BoardGame
 	/**
 	 * Each player places their game piece at a location on the board, as defined by the Location enum.
 	 */
-	protected LinkedHashMap<String, GamePiece> playerPieces;
+	protected LinkedHashMap<String, GamePiece> playerPieces = new LinkedHashMap<String, GamePiece>();
 	
 	/**
 	 * Each player is associated with a unique game piece 
 	 */
-	protected LinkedHashMap<String, Location> playerLocations;
+	protected LinkedHashMap<String, Location> playerLocations = new LinkedHashMap<String, Location>();
 	
 	/**
 	 * Empty constructor
@@ -39,7 +39,7 @@ public class BoardGame
 	 * @return
 	 */
 	public boolean addPlayer(String playerName, GamePiece gamePiece, Location initialLocation)
-	{
+	{	
 		if((! playerPieces.containsKey(playerName)) && (! playerPieces.containsValue(gamePiece)))
 		{
 			playerPieces.put(playerName, gamePiece);
@@ -47,7 +47,7 @@ public class BoardGame
 			
 			return true;
 		}
-		
+	
 		else
 		{
 			return false;
@@ -108,23 +108,28 @@ public class BoardGame
 		GamePiece playerTwo = playerPieces.get(playerNames[1]);
 		
 		GamePiece movesFirst = playerOne.movesFirst(playerOne, playerTwo);
+		String first;
+		String second;
 		
-		String[] moveOrder = new String[]{};
-		
-		if(movesFirst.equals(playerOne))
+		if(movesFirst == playerOne)
 		{
-			moveOrder[0] = playerNames[0];
-			moveOrder[1] = playerNames[1];
-			playerLocations.replace(playerNames[0], newLocation[0]);
+			first = playerNames[0];
+			second = playerNames[1];
+			String[] moveOrder = new String[]{first, second};
+			movePlayer(playerNames[0], newLocation[0]);
+			movePlayer(playerNames[1], newLocation[1]);
+			return moveOrder;
 		}
 		else
 		{
-			moveOrder[1] = playerNames[1];
-			moveOrder[0] = playerNames[0];
-			playerLocations.replace(playerNames[1], newLocation[1]);
+			first = playerNames[1];
+			second = playerNames[0];
+			String[] moveOrder = new String[]{first, second};
+			movePlayer(playerNames[1], newLocation[1]);
+			movePlayer(playerNames[0], newLocation[0]);
+			return moveOrder;
 		}
 		
-		return moveOrder;
 	}
 	
 	/**
